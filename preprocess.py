@@ -97,7 +97,8 @@ def main():
     parser.add_argument('--max_node_num', type=int, default=200, help='maximum number of nodes per graph')
     parser.add_argument('-p', '--nprocs', type=int, default=cpu_count(), help='number of processes to use')
     parser.add_argument('--seed', type=int, default=0, help='random seed')
-    parser.add_argument('--debug', action='store_true', help='enable debug mode')
+    # parser.add_argument('--debug', action='store_true', help='enable debug mode')
+    parser.add_argument('-debug', action='store_true', help='enable debug mode') # modified by KKHYA
 
     args = parser.parse_args()
     logger = Logger(args) # added by KKHYA
