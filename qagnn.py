@@ -26,6 +26,7 @@ print ("conda env:", os.environ['CONDA_DEFAULT_ENV'])
 print ("screen: %s" % subprocess.check_output('echo $STY', shell=True).decode('utf'))
 print ("gpu: %s" % subprocess.check_output('echo $CUDA_VISIBLE_DEVICES', shell=True).decode('utf'))
 
+from smilelogging import Logger # added by KKHYA
 
 def evaluate_accuracy(eval_set, model):
     n_samples, n_correct = 0, 0
@@ -39,7 +40,9 @@ def evaluate_accuracy(eval_set, model):
 
 
 def main():
-    parser = get_parser()
+    # parser = get_parser()
+    from smilelogging import argparser as parser # added by KKHYA
+    
     args, _ = parser.parse_known_args()
     parser.add_argument('--mode', default='train', choices=['train', 'eval_detail'], help='run training or evaluation')
     parser.add_argument('--save_dir', default=f'./saved_models/qagnn/', help='model output directory')
@@ -88,6 +91,8 @@ def main():
     if args.simple:
         parser.set_defaults(k=1)
     args = parser.parse_args()
+    logger = Logger(args) # added by KKHYA
+    
     args.fp16 = args.fp16 and (torch.__version__ >= '1.6.0')
 
     if args.mode == 'train':
