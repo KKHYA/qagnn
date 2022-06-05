@@ -7,6 +7,8 @@ from utils.conceptnet import extract_english, construct_graph
 from utils.grounding import create_matcher_patterns, ground
 from utils.graph import generate_adj_data_from_grounded_concepts__use_LM
 
+from smilelogging import Logger # added by KKHYA
+
 input_paths = {
     'csqa': {
         'train': './data/csqa/train_rand_split.jsonl',
@@ -87,7 +89,9 @@ output_paths = {
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    # parser = argparse.ArgumentParser()
+    from smilelogging import argparser as parser # added by KKHYA
+    
     parser.add_argument('--run', default=['common'], choices=['common', 'csqa', 'hswag', 'anli', 'exp', 'scitail', 'phys', 'socialiqa', 'obqa', 'obqa-fact', 'make_word_vocab'], nargs='+')
     parser.add_argument('--path_prune_threshold', type=float, default=0.12, help='threshold for pruning paths')
     parser.add_argument('--max_node_num', type=int, default=200, help='maximum number of nodes per graph')
@@ -96,6 +100,8 @@ def main():
     parser.add_argument('--debug', action='store_true', help='enable debug mode')
 
     args = parser.parse_args()
+    logger = Logger(args) # added by KKHYA
+    
     if args.debug:
         raise NotImplementedError()
 
